@@ -1,0 +1,16 @@
+#IDE
+.vscode/*
+
+#Virtual enviroment
+venv_11.3/*
+
+#Others files and directories
+__pycache__/*
+pyopencl-2021.1.6/*
+i_kernels.cl
+test.py
+
+Lab2/orig_transpose.py
+Lab2/transpose.py
+Lab2/transpose-benchmark.png
+
