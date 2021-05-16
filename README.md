@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # PyOpenCL_Labs
 
 ## The first lab is a matr multiplication as [M x K] X [K x N] = [M x N]
@@ -42,4 +41,3 @@ python Lab2\lab2.py transpose_kernels.cl 1024 512 check
 * [OpenCL Concepts](https://sites.google.com/site/csc8820/opencl-basics/opencl-concepts)
 * [Nvidia OpenCL Best Practice Guide](https://www.nvidia.com/content/cudazone/CUDABrowser/downloads/papers/NVIDIA_OpenCL_BestPracticesGuide.pdf)
 * [Nvidia OpenCL Programmig Guide](http://developer.download.nvidia.com/compute/DevZone/docs/html/OpenCL/doc/OpenCL_Programming_Guide.pdf)
->>>>>>> 62f112f79dfa62217df86e305d70f989318671ab
