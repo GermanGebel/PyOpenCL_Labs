@@ -8,8 +8,6 @@
 python Lab1\lab1.py matr_mul_kernels.cl 1024 512 2048 check
 ```
 
-***python Lab1\lab1.py matr_mul_kernels.cl 1024 512 2048 check***
-
 ## The second lab is a transpose matr ([M x N] -> [N x M]) which devided for 3 solutions
 
 * naive transpose
