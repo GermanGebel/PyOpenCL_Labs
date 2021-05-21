@@ -57,7 +57,7 @@ def normilize_sizes(M, N):
     i = 0
     barrier = 32
     while(local_size_M <= M and local_size_M <= barrier and 2 ** (i + 1) <= barrier and M > 2 ** (i + 1)):
-        print(1, local_size_M <= M, local_size_M <= barrier, M > 2 ** (i + 1))
+        # print(1, local_size_M <= M, local_size_M <= barrier, M > 2 ** (i + 1))
         i += 1
         local_size_M = 2 ** i
     
