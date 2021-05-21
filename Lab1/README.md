@@ -28,7 +28,7 @@ Compare with host matr: True
 CPU_TIME: 2.9976367950439453 ms
 GPU_TIME: 0.21254399999999998 ms
 
-Program work time:0.017995119094848633
+Program work time: 0.017995119094848633 s
 
 # ---------------------------- Result 2 ---------------------------- 
 LAB 1
@@ -38,7 +38,7 @@ Global size: (128, 1024)
 Local size: (32, 32)
 
 GPU_TIME: 1.91088 ms
-Program work time:0.01599717140197754
+Program work time: 0.01599717140197754 s
 
 # ---------------------------- Result 3 ---------------------------- 
 LAB 1
@@ -72,6 +72,6 @@ Compare with host matr: True
 CPU_TIME: 0.0 ms
 GPU_TIME: 0.013056 ms
 
-Program work time:0.012976884841918945
+Program work time: 0.012976884841918945 s
 ```
 
