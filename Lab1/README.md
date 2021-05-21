@@ -22,9 +22,11 @@ LAB 1
 
 Global size: (512, 2)
 Local size: (256, 1)
+
 Compare with host matr: True
 CPU_TIME: 2.9976367950439453 ms
 GPU_TIME: 0.21254399999999998 ms
+
 Program work time:0.017995119094848633
 
 # Result 2
