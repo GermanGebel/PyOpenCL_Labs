@@ -106,7 +106,7 @@ def lab1(M, K, N, check_results, print_results):
     if check_results:
         host_result_matr, cpu_time = host_mul(A, B)
         if print_results:
-            print(f"Host result matr: \n {host_result_matr}")
+            print(f"Host result matr: \n {host_result_matr}\n")
         
     
     buffer_in_A = cl.Buffer(context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR, hostbuf=A)
@@ -125,7 +125,7 @@ def lab1(M, K, N, check_results, print_results):
     global_size = (n, m)
     local_size = (l_n, l_m)
     
-    print("Global size: {}\nLocal size: {}".format(global_size, local_size))
+    print("Global size: {}\nLocal size: {}\n".format(global_size, local_size))
     # for j in range(check_amount):
 
     event = cl.enqueue_nd_range_kernel(queue, kernel, global_size, local_size)
@@ -137,7 +137,7 @@ def lab1(M, K, N, check_results, print_results):
     device_result_matr = device_result_matr.reshape(M, N)
 
     if print_results:
-        print(f"Device result matr: \n {device_result_matr}")
+        print(f"Device result matr: \n {device_result_matr}\n")
     if check_results:            
         comparison = host_result_matr == device_result_matr
         is_equal = comparison.all()
@@ -146,7 +146,7 @@ def lab1(M, K, N, check_results, print_results):
         # data.update({"CPU_TIME (s)": cpu_time, 'Compare with host': flag})
     
     # data.update({"GPU_TIME (ms)": gpu_time/1e6})
-    print('GPU_TIME: {} ms'.format(gpu_time * 1e-6))
+    print('GPU_TIME: {} ms\n'.format(gpu_time * 1e-6))
 
 def main():   
     global KERNELS_FILE
