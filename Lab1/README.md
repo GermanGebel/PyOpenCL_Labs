@@ -1,4 +1,5 @@
-# Lab 1 [M x K] X [K x N]
+# Lab 1 
+## [M x K] X [K x N] = [M x N]
 
 ### Run code
 
