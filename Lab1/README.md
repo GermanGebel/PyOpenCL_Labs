@@ -1,4 +1,5 @@
-# Lab 1 [M x K] X [K x N]
+# Lab 1 
+## [M x K] X [K x N] = [M x N]
 
 ### Run code
 
@@ -16,18 +17,20 @@ Max CU: 3
 Max work groub size: 1024 WIs
 
 
-# Result 1
+# ---------------------------- Result 1 ---------------------------- 
 LAB 1
 [2x1000] X [1000x500]
 
 Global size: (512, 2)
 Local size: (256, 1)
+
 Compare with host matr: True
 CPU_TIME: 2.9976367950439453 ms
 GPU_TIME: 0.21254399999999998 ms
-Program work time:0.017995119094848633
 
-# Result 2
+Program work time: 0.017995119094848633 s
+
+# ---------------------------- Result 2 ---------------------------- 
 LAB 1
 [1000x300] X [300x99]
 
@@ -35,9 +38,9 @@ Global size: (128, 1024)
 Local size: (32, 32)
 
 GPU_TIME: 1.91088 ms
-Program work time:0.01599717140197754
+Program work time: 0.01599717140197754 s
 
-# Result 3
+# ---------------------------- Result 3 ---------------------------- 
 LAB 1
 [3x4] X [4x5]
 
@@ -69,6 +72,6 @@ Compare with host matr: True
 CPU_TIME: 0.0 ms
 GPU_TIME: 0.013056 ms
 
-Program work time:0.012976884841918945
+Program work time: 0.012976884841918945 s
 ```
 
