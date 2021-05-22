@@ -25,7 +25,7 @@ Local mem size: {} Bytes
 Max CU: {}
 Max work groub size: {} WIs\n""".format( device.name, global_mem, local_mem, max_CU, max_WGS)
     print(info)
-    context = cl.create_some_context()
+    context = cl.Context(devices) #cl.create_some_context()
     queue = cl.CommandQueue(context,
         properties=cl.command_queue_properties.PROFILING_ENABLE)
 
@@ -154,8 +154,8 @@ def lab2(M, N, check_results, print_results):
         
         data.update({"GPU_TIME (ms)": gpu_time * 1e-6})
 
-        mem_bw = (2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-6) # GB / s 
-        efficiency = (mem_bw  / 80 * 100)
+        mem_bw = (2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-9) # GB / s 
+        efficiency = (mem_bw  / 120 * 100)
         data.update({'Mem bandwidths (GB/s)': mem_bw, 'Efficiency(%)': efficiency})
 
         results.update({i: data})
@@ -191,7 +191,7 @@ Max work groub size: {} WIs\n""".format( device.name, global_mem, local_mem, max
     #print("Prop: {}".format(queue.set_property(cl.command_queue_properties.PROFILING_ENABLE, True)))
     
     sizes = [int(((2**i) // 32) * 32)
-            for i in np.arange(10, 13.5, 0.125)]
+            for i in np.arange(10, 12, 0.125)]
 
     efficiecies = {}
     
@@ -226,6 +226,8 @@ def lab2_parse_argv(argv):
     if len(argv) == 1:
         print("Enter more arguments")
         return
+    elif len(argv) == 4:
+        pass
     elif len(argv) == 5:
         check_results = True if argv[4] == 'check' else False
     elif len(argv) == 6:
@@ -243,7 +245,7 @@ def lab2_parse_argv(argv):
 
 def main():   
     lab2_parse_argv(sys.argv)
-    # graphics()
+    graphics()
 
 if __name__ == '__main__':
     main()
