@@ -48,8 +48,8 @@ __kernel void padding_local_matr_T(
     if (col < N && row < M){
         tile[l_row][l_col] = A[row * N + col];
         barrier(CLK_LOCAL_MEM_FENCE);
-        A_T[row * N + col] = tile[l_col][l_row];
-    }
+        A_T[col * M + row] = tile[l_row][l_col];
+    }  
 }
 
 

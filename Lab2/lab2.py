@@ -154,8 +154,8 @@ def lab2(M, N, check_results, print_results):
         
         data.update({"GPU_TIME (ms)": gpu_time * 1e-6})
 
-        mem_bw = (2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-9) # GB / s 
-        efficiency = (mem_bw * 1e-3 / 80 * 100)
+        mem_bw = (2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-6) # GB / s 
+        efficiency = (mem_bw  / 80 * 100)
         data.update({'Mem bandwidths (GB/s)': mem_bw, 'Efficiency(%)': efficiency})
 
         results.update({i: data})
@@ -242,8 +242,8 @@ def lab2_parse_argv(argv):
 
 
 def main():   
-    # lab2_parse_argv(sys.argv)
-    graphics()
+    lab2_parse_argv(sys.argv)
+    # graphics()
 
 if __name__ == '__main__':
     main()
