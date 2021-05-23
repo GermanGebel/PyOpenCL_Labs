@@ -14,7 +14,7 @@
 ```
 py lab2.py transpose_kernels.cl 3096 1024 check print 
 ```
-#### To create a graphic
+#### To create a graphic:
 
 ```
 py lab2.py transpose_kernels.cl graph
@@ -29,11 +29,9 @@ py lab2.py transpose_kernels.cl graph
 
 #### Formula for computing a memory bandwidth:
 
-$$
-Effective bandwidth = (( Br + Bw ) / 109 ) / time
-$$
+![equation](Bandwidth_formula.jpg)
 
-#### Code
+#### Code:
 ```
 max_mem_bw = 14.4
 mem_bw = ((2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-9)) # GB / s 
@@ -43,7 +41,7 @@ data.update({'Mem bandwidths (GB/s)': mem_bw, 'Efficiency(%)': efficiency})
 ![plot](./bench/test_0.png)
 ![plot](./bench/test_1.png)
 
-### Cmd results
+### Cmd results:
 
 ```
 Device: NVIDIA GeForce 840M:
