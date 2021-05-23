@@ -25,30 +25,13 @@ Local mem size: {} Bytes
 Max CU: {}
 Max work groub size: {} WIs\n""".format( device.name, global_mem, local_mem, max_CU, max_WGS)
     print(info)
-    context = cl.Context(devices) #cl.create_some_context()
+    context = cl.Context(devices) # cl.create_some_context()
     queue = cl.CommandQueue(context,
         properties=cl.command_queue_properties.PROFILING_ENABLE)
 
-    #print("Prop: {}".format(queue.set_property(cl.command_queue_properties.PROFILING_ENABLE, True)))
-
-def naive_host_transpose(matr, M, N):
-    matr_T = np.empty_like(matr)
-
-    start = time()
-
-    for row in range(M):
-        for col in range(N):
-            matr_T[col * M + row] = matr[row * N + col]
-    
-    cpu_time = time() - start
-    return matr_T, cpu_time
-
 def host_transpose(matr):
-    start = time()
-    matr_T = matr.T
-    end = time()
-    cpu_time = end - start
-    return matr_T, cpu_time
+    matr_T = np.transpose(matr)
+    return matr_T
 
 def global_normilize(G, L):
     while not G % L == 0:
@@ -109,7 +92,9 @@ def lab2(M, N, check_results, print_results):
     cpu_time = None
 
     if check_results:
-        host_matr_T, cpu_time = host_transpose(matr.reshape((M, N))) #naive_host_transpose(matr, M, N)
+        start = time()
+        host_matr_T = host_transpose(matr.reshape((M, N))) #naive_host_transpose(matr, M, N)
+        cpu_time = time() - start
         if print_results:
             print("Host matr_T: \n {}\n".format(host_matr_T))
         
@@ -126,13 +111,13 @@ def lab2(M, N, check_results, print_results):
             # local_size = None
         elif i == 'local_matr_T':
             kernel = program.local_matr_T
-            local_size = None
+            # local_size = None
         elif i == 'padding_local_matr_T':
             kernel = program.padding_local_matr_T
-            local_size = None
+            # local_size = None
         kernel.set_args(buffer_in, buffer_out, M, N)
 
-        check_amount = 50
+        check_amount = 25
         gpu_time = 0
         for j in range(check_amount):
             event = cl.enqueue_nd_range_kernel(queue, kernel, global_size, local_size)
@@ -154,8 +139,9 @@ def lab2(M, N, check_results, print_results):
         
         data.update({"GPU_TIME (ms)": gpu_time * 1e-6})
 
-        mem_bw = (2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-9) # GB / s 
-        efficiency = (mem_bw  / 120 * 100)
+        max_mem_bw = 14.4
+        mem_bw = ((2 * device_matr_T.nbytes / pow(1024, 3)) / (gpu_time * 1e-9)) # GB / s 
+        efficiency = (mem_bw  / max_mem_bw * 100)
         data.update({'Mem bandwidths (GB/s)': mem_bw, 'Efficiency(%)': efficiency})
 
         results.update({i: data})
@@ -169,29 +155,11 @@ def new_name():
 
 def graphics():    
     global context, queue, program, KERNELS_FILE
-    KERNELS_FILE = 'transpose_kernels.cl'
-
-    platforms = cl.get_platforms()
-    devices = platforms[0].get_devices(cl.device_type.GPU)
-    device = devices[0]
-    global_mem = device.get_info(cl.device_info.GLOBAL_MEM_SIZE)
-    local_mem = device.get_info(cl.device_info.LOCAL_MEM_SIZE)
-    max_CU = device.get_info(cl.device_info.MAX_COMPUTE_UNITS)
-    max_WGS = device.get_info(cl.device_info.MAX_WORK_GROUP_SIZE)
-    info = """Device: {}:
-Global mem size: {} Bytes
-Local mem size: {} Bytes
-Max CU: {}
-Max work groub size: {} WIs\n""".format( device.name, global_mem, local_mem, max_CU, max_WGS)
-    print(info)
-    context = cl.create_some_context()
-    queue = cl.CommandQueue(context,
-        properties=cl.command_queue_properties.PROFILING_ENABLE)
 
     #print("Prop: {}".format(queue.set_property(cl.command_queue_properties.PROFILING_ENABLE, True)))
     
     sizes = [int(((2**i) // 32) * 32)
-            for i in np.arange(10, 12, 0.125)]
+            for i in np.arange(6, 14, 0.125)]
 
     efficiecies = {}
     
@@ -226,6 +194,12 @@ def lab2_parse_argv(argv):
     if len(argv) == 1:
         print("Enter more arguments")
         return
+    elif len(argv) == 3:
+        if argv[2] == 'graph':
+            KERNELS_FILE = argv[1]
+            initOpenCL()
+            graphics()
+        return        
     elif len(argv) == 4:
         pass
     elif len(argv) == 5:
@@ -244,8 +218,9 @@ def lab2_parse_argv(argv):
 
 
 def main():   
+    start = time()
     lab2_parse_argv(sys.argv)
-    graphics()
+    print("Program work time: {}".format(time() - start))
 
 if __name__ == '__main__':
     main()
